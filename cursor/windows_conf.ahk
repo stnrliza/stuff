@@ -6,8 +6,8 @@ SetCapsLockState, AlwaysOff
 
 ; ====== Cursor Movement Behaviour =====
 initSpeed := 15
-increment := 15
-step := 0.1
+increment := 15 ; speed increment
+step := 0.1 ; step up every n miliseconds
 maxSeconds := 3
 
 wHeld := false, aHeld := false, sHeld := false, dHeld := false
@@ -17,7 +17,14 @@ eHeld := false, xHeld := false
 eStart := 0, xStart := 0
 scrollAccum := 0.0
 
+capsHeld := false
+capsDragActive := false
+capsPressThreshold := 200  ; ms - below this = click, at/above this = drag hold
+capsDownTime := 0
+capsSpaceUsed := false
+
 SetTimer, MoveMouse, 10
+SetTimer, CapsPoll, 15
 return
 
 !w::
@@ -124,5 +131,41 @@ GetSpeed(startTime) {
 }
 
 ; ====== Left Click and Right Click Behaviour =====
-CapsLock::Click
-CapsLock & Space::Click, Right
+CapsLock::
+if (!capsHeld) {
+    capsHeld := true
+    capsDownTime := A_TickCount
+}
+return
+
+CapsLock up::
+capsHeld := false
+if (capsDragActive) {
+    Click, Up
+    capsDragActive := false
+} else if (!capsSpaceUsed) {
+    Click
+}
+capsSpaceUsed := false
+capsDownTime := 0
+return
+
+CapsPoll:
+if (capsHeld and !capsDragActive and !capsSpaceUsed and (A_TickCount - capsDownTime >= capsPressThreshold)) {
+    Click, Down
+    capsDragActive := true
+}
+return
+
+Space::
+if (capsHeld) {
+    if (capsDragActive) {
+        Click, Up
+        capsDragActive := false
+    }
+    Click, Right
+    capsSpaceUsed := true
+} else {
+    Send {Space}
+}
+return

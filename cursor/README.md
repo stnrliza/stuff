@@ -5,6 +5,8 @@ These programs are used to control cursor behaviour using only keyboard, so no m
 >2. `Capslock` is turned off totally; use the default alternative `Shift` to write capital letters.
 
 ## SHORTCUTS GUIDE
+### CURSOR
+File: Download [cursor_windows.ahk](https://github.com/stnrliza/stuff/cursor/cursor_windows.ahk)
 #### CURSOR MOVEMENT
 - `Alt + W/A/S/D` to move the cursor (support diagonal movement and acceleration)
   
@@ -17,6 +19,14 @@ These programs are used to control cursor behaviour using only keyboard, so no m
 - Long Press `Capslock` to long press left click
 - `Capslock + Space` to right click
 
+### OTHER SHORTCUTS
+File: Download [autohotkey_others.ahk](https://github.com/stnrliza/stuff/cursor/autohotkey_others.ahk)
+- `Ctrl + ]` to volume up
+- `Ctrl + [` to volume down
+- `Ctrl + Alt + ;` to pause/play media
+- `Ctrl + Alt + >` to next media
+- `Ctrl + Alt + <` to previous media
+
 ## IMPLEMENTATION STEPS
 #### WINDOWS
 1. Install `Autohotkey` v1x.
@@ -25,7 +35,9 @@ These programs are used to control cursor behaviour using only keyboard, so no m
 4. (Optional) Autostart on login:
    1. `Windows + R`, type `shell:startup`, enter.
    2. Copy your .ahk file there. **It'll run as the startup app!**
-   
+
+---
+> Ubuntu still under construction
 #### UBUNTU (Works for `X11`, `Wayland` need adjustment)
 Open your Terminal:
 1. Install the `pynput` Python library.
